@@ -6,13 +6,16 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <?php //error_reporting(E_ERROR | E_PARSE);
-    /* tmp Debug */
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+    <div id="content">
+      <?php //error_reporting(E_ERROR | E_PARSE);
+      /* tmp Debug */
+      error_reporting(E_ALL);
+      ini_set('display_errors', 1);
 
-    /* galleries */
-    include('inc/panigall.php');
-    ?>
+      /* galleries */
+      include('inc/panigall.php');
+      ?>
+    </div>
+
   </body>
 </html>
