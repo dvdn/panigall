@@ -1,6 +1,6 @@
 <?php
 
-const GALLDIRNAME = 'medias';
+const GALLDIRNAME = 'media';
 
 /**
  * Get gall dirs tree
