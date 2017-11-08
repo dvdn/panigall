@@ -20,7 +20,7 @@ function getContentTree($dir=null){
     }
     $exclude_list = array(".", "..");
     $items = array_diff(scandir($path), $exclude_list);
-    return $items;
+    return array('path'=> $path, 'items'=> $items);
 }
 
 /**
@@ -30,7 +30,7 @@ function getContentTree($dir=null){
 *
 * @return string Html
 */
-function view($item) {
+function view($path, $item) {
     $icon = is_dir($item) ? ICONFOLDER : ICONFILE;
     $link = is_dir($item) ? '?d='.$item : $item;
 
@@ -42,9 +42,9 @@ function view($item) {
 *
 * @param array $items to manage
 */
-function manageDirs(Array $items){
-    foreach ($items as $item) {
-            view($item);
+function manageDirs(Array $pathItems){
+    foreach ($pathItems['items'] as $item) {
+            view($pathItems['path'], $item);
     }
 }
 
