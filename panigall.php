@@ -6,15 +6,20 @@ const ICONFOLDER = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBo
 </svg>';
 
 /**
- * Get gall dirs tree
+ * Get dirs tree
  *
  * @return array
  *
  */
-function getMediaTree(){
+function getContentTree($dir=null){
     $workdir = getcwd();
+    if(isset($dir)) {
+        if ($dir=='home'){$path = $workdir.'/';}else{$path = $workdir.'/'.$dir;}
+    } else {
+        $path = $workdir;
+    }
     $exclude_list = array(".", "..");
-    $items = array_diff(scandir($workdir), $exclude_list);
+    $items = array_diff(scandir($path), $exclude_list);
     return $items;
 }
 
@@ -26,10 +31,10 @@ function getMediaTree(){
 * @return string Html
 */
 function view($item) {
-    $path = $item;
-    $icon = is_dir($path) ? ICONFOLDER : ICONFILE;
+    $icon = is_dir($item) ? ICONFOLDER : ICONFILE;
+    $link = is_dir($item) ? '?d='.$item : $item;
 
-    echo '<a href="'.$path.'"/>'.$icon.'<br>'.$item.'</a>';
+    echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
 }
 
 /**
@@ -37,7 +42,7 @@ function view($item) {
 *
 * @param array $items to manage
 */
-function manageGallsDir(Array $items){
+function manageDirs(Array $items){
     foreach ($items as $item) {
             view($item);
     }
@@ -46,13 +51,9 @@ function manageGallsDir(Array $items){
 /**
  * Navigation
  */
-function nav() {
-    echo '<div id="nav">';
-    viewNavItem('home');
-    if (isset($_GET["d"])) {
-        viewNavItem($_GET["d"]);
-    }
-    echo '</div>';
+function nav($dir) {
+    //@ToDo get root path
+    viewNavItem($dir);
 }
 
 /**
@@ -64,8 +65,22 @@ function viewNavItem($item) {
     echo '<a href="?d='.$item.'"/> > '.$item.'</a>';
 }
 
-/*execution*/
-nav();
-manageGallsDir(getMediaTree());
+/**
+ *
+ */
+function viewTree($dir) {
+    echo '<div id="nav">';
+        nav($dir);
+    echo '</div>';
+    manageDirs(getContentTree($dir));
+}
 
+/*execution*/
+
+if (isset($_GET["d"])) {
+    $dir = $_GET["d"];
+} else {
+    $dir = 'home';
+}
+viewTree($dir);
 
