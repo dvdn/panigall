@@ -7,14 +7,14 @@
   </head>
   <body>
     <div id="content">
-      <h1>Panigall</h1>
-      <?php //error_reporting(E_ERROR | E_PARSE);
+      <?php
           /* tmp Debug */
           error_reporting(E_ALL);
           ini_set('display_errors', 1);
+          /*-*/
 
-          /* galleries */
-          include('inc/panigall.php');
+          /* panigall explorer */
+          include('panigall.php');
       ?>
     </div>
 
