@@ -18,7 +18,6 @@ function getMediaTree(){
     return $items;
 }
 
-
 /**
 * viewItems
 *
@@ -33,12 +32,10 @@ function view($item) {
     echo '<a href="'.$path.'"/>'.$icon.'<br>'.$item.'</a>';
 }
 
-
 /**
 * Manage each dir
 *
 * @param array $items to manage
-*
 */
 function manageGallsDir(Array $items){
     foreach ($items as $item) {
@@ -47,22 +44,27 @@ function manageGallsDir(Array $items){
 }
 
 /**
- * Get gall dirs tree
- *
- * @return array
- *
+ * Navigation
  */
 function nav() {
-    $workdir = getcwd();
+    echo '<div id="nav">';
+    viewNavItem('home');
     if (isset($_GET["d"])) {
-            viewNavItem($workdir.'/'.$_GET["d"]);
-        }
+        viewNavItem($_GET["d"]);
     }
+    echo '</div>';
+}
 
+/**
+ * Display navigation item
+ *
+ * @param string directory name
+ */
 function viewNavItem($item) {
     echo '<a href="?d='.$item.'"/> > '.$item.'</a>';
 }
 
+/*execution*/
 nav();
 manageGallsDir(getMediaTree());
 

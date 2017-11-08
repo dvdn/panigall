@@ -17,6 +17,10 @@ body {
 #content {
     text-align: center;
 }
+#nav {
+    display: inline-block;
+    width: 100%;
+}
 
 a {
     float: left;
