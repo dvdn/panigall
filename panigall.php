@@ -9,7 +9,10 @@ define('ROOT_PATH', dirname($_SERVER['PHP_SELF']));
 define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
 
 /**
+ * View tree
  *
+ * @param string $dir name
+ * @return string Html
  */
 function viewTree($dir) {
     echo '<div id="nav">';
@@ -22,10 +25,10 @@ function viewTree($dir) {
 }
 
 /**
- * Get dirs tree
+ * Get dir tree
  *
+ * @param string $dir name
  * @return array
- *
  */
 function getContentTree($dir){
     $path = getcwd().$dir;
@@ -35,10 +38,9 @@ function getContentTree($dir){
 }
 
 /**
-* viewItems
+* View item
 *
-* @param string $dir to view
-*
+* @param string $item name
 * @return string Html
 */
 function view($item) {
@@ -62,6 +64,7 @@ function nav($dir) {
  * Display navigation item
  *
  * @param string directory name
+ * @return string Html
  */
 function viewNavItem($item) {
     echo '<a href="?d='.$item.'"/> > '.$item.'</a>';
