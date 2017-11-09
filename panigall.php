@@ -15,10 +15,14 @@ define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
  * @return string Html
  */
 function viewTree($dir) {
+
+    $treeElmnts = explode('/', $dir);
+    $parentdir = str_replace('/'.array_pop($treeElmnts), '', $dir);
     echo '<div id="nav">';
+        ($dir!=='') ? nav($parentdir) : '';
         nav($dir);
     echo '</div>';
-;
+
     foreach (getContentTree($dir) as $item) {
             view($item);
     }
