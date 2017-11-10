@@ -15,17 +15,13 @@ define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
  * @return string Html
  */
 function viewTree($dir) {
-
-    $treeElmnts = explode('/', $dir);
-    $parentdir = str_replace('/'.array_pop($treeElmnts), '', $dir);
-    echo '<div id="nav">';
-        ($dir!=='') ? nav($parentdir) : '';
-        nav($dir);
-    echo '</div>';
-
+    viewNav($dir);
+    echo '<div id="explorer">';
     foreach (getContentTree($dir) as $item) {
             view($item);
     }
+    echo '</div>';
+
 }
 
 /**
@@ -52,16 +48,43 @@ function view($item) {
     $pathItem = getcwd().$linkItem;
     $icon = is_dir($pathItem) ? ICONFOLDER : ICONFILE;
     $link = is_dir($pathItem) ? '?d='.$linkItem : ROOT_PATH.$linkItem;
-
     echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
 }
 
 /**
  * Navigation
  */
-function nav($dir) {
-    //@ToDo get root path
-    viewNavItem($dir);
+function viewNav($dirPathRel) {
+    $navDirs = controlNav($dirPathRel);
+    echo '<div id="nav">';
+    foreach ($navDirs as $navDir) {
+       viewNavItem($navDir);
+    }
+    echo '</div><hr>';
+}
+
+/**
+ * Manage breadcrumb
+ *
+ * @param string $dirPathRel name
+ * @return  array $dirs crumbs
+ */
+function controlNav($dirPathRel) {
+    $ariane[]=$dirPathRel;
+    if ($dirPathRel!=='') {
+        $treeElmnts = explode('/', $dirPathRel);
+        $tmpToPop = $treeElmnts;
+        $i=1;
+        while( $i < count($treeElmnts)) {
+            array_pop($tmpToPop);
+            $parentdir = implode('/', $tmpToPop);
+            $ariane[]=$parentdir;
+            $i++;
+        }
+        # breadcrumb reorder
+        $ariane = array_reverse($ariane);
+    }
+    return $ariane;
 }
 
 /**
@@ -71,7 +94,12 @@ function nav($dir) {
  * @return string Html
  */
 function viewNavItem($item) {
-    echo '<a href="?d='.$item.'"/> > '.$item.'</a>';
+    if ($item!==''){
+        $path = explode('/', $item);
+        echo '<a href="?d='.$item.'"/> / '.end($path).'</a>';
+    } else {
+        echo '<a href="'.ROOT_PATH.'"/>home</a>';
+    }
 }
 
 /*execution*/
