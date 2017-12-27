@@ -8,6 +8,9 @@ const ICONFOLDER = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBo
 define('ROOT_PATH', dirname($_SERVER['PHP_SELF']));
 define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
 
+CONST W_THUMBS = 160;
+CONST H_THUMBS = 128;
+
 /**
  * View tree
  *
@@ -54,7 +57,7 @@ function view($item) {
         $thumb = false;
         // if image viewImage
         if(is_array(getimagesize($pathItem))) {
-            $thumb = getThumb($pathItem, $item);            
+            $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
         echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
@@ -88,8 +91,8 @@ function getThumb($filePath, $fileName) {
 
 function generateThumb($filePath, $fileName) {
     // Set a maximum height and width
-    $widthTh = 160;
-    $heightTh = 128;
+    $widthTh = W_THUMBS;
+    $heightTh = H_THUMBS;
 
     // read EXIF data, exif_read_data is bugged :/
     $exif = @exif_read_data($filePath);

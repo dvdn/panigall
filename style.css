@@ -33,4 +33,6 @@ body {
 }
 #explorer a {
     margin: 1em;
+    width: 160px;
+    height: 160px;
 }
