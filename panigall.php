@@ -19,9 +19,9 @@ function viewTree($dir) {
     echo '<div id="explorer">';
     foreach (getContentTree($dir) as $item) {
             view($item);
+        
     }
     echo '</div>';
-
 }
 
 /**
@@ -40,19 +40,119 @@ function getContentTree($dir){
 /**
 * View item
 *
-* @param string $item name
+* @param string $item filename
 * @return string Html
 */
 function view($item) {
     $linkItem = DIR.'/'.$item;
     $pathItem = getcwd().$linkItem;
-    $icon = is_dir($pathItem) ? ICONFOLDER : ICONFILE;
-    $link = is_dir($pathItem) ? '?d='.$linkItem : ROOT_PATH.$linkItem;
-    echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
+
+    if (is_dir($pathItem)) {
+        echo '<a href="?d='.$linkItem.'"/>'.ICONFOLDER.'<br>'.$item.'</a>';
+    } else {
+        $link = ROOT_PATH.$linkItem;
+        $thumb = false;
+        // if image viewImage
+        if(is_array(getimagesize($pathItem))) {
+            $thumb = getThumb($pathItem, $item);            
+        }
+        $icon = ($thumb==false) ? ICONFILE : $thumb;
+        echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
+    }
+}
+
+/**
+* View itemImage
+*
+* @param string $filePath filePath
+* @return string Html
+*/
+function getThumb($filePath, $fileName) {
+    //exif_thumbnail is bugged :/
+    $imageThumb = @exif_thumbnail($filePath, $width, $height, $type);
+    if ($imageThumb!== false) {
+        return "<img  width='$width' height='$height' src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
+    } else {
+        generateThumb($filePath, $fileName);
+        return "<img  width='$width' height='$height' src='".ROOT_PATH.'/cache/'.$fileName."'>";
+        
+    }
+}
+
+/**
+ * generateThumb
+ *
+ * @param string $filePath filePath
+ * @return string Html
+ */
+
+function generateThumb($filePath, $fileName) {
+    // Set a maximum height and width
+    $widthTh = 160;
+    $heightTh = 128;
+
+    // read EXIF data, exif_read_data is bugged :/
+    $exif = @exif_read_data($filePath);
+
+    // crea $image dal file
+    if (strpos(strtolower($filePath),".png")) { 
+        $image = imagecreatefrompng($filePath); // PNG
+    } else {
+        $image = imagecreatefromjpeg($filePath); // JPG
+    }
+    
+    $image = imgManageRotation($image, $exif);
+    
+    // Get dimensions
+    $width = imagesx($image);
+    $height = imagesy($image);
+    $ratio = $width/$height;
+
+    if ($widthTh/$heightTh > $ratio) {
+        $widthTh = $heightTh*$ratio;
+    } else {
+        $heightTh = $widthTh/$ratio;
+    }
+
+    // Create empty image
+    $img = imagecreatetruecolor($widthTh, $heightTh);
+
+    // fill empty image
+    imagecopyresampled($img, $image, 0, 0, 0, 0, $widthTh, $heightTh, $width, $height);
+    // destroy old image 
+    imagedestroy($image);
+
+    $imgCachePath = 'cache/'.$fileName;
+
+    // Output
+    return imagejpeg($img, $imgCachePath);
+    
+    
+}
+
+function imgManageRotation($image, $exif) {
+    // rotate image if needed
+    if (!empty($exif['Orientation'])) {
+        switch ($exif['Orientation']) {
+            case 3:
+                $image = imagerotate($image, 180, 0);
+            break;
+            case 6:
+                $image = imagerotate($image, -90, 0);
+            break;
+            case 8:
+                $image = imagerotate($image, 90, 0);
+            break;
+        }
+    }
+    return $image;
 }
 
 /**
  * Navigation
+ *
+ * @param string $dirPathRel name
+ * @return string Html
  */
 function viewNav($dirPathRel) {
     $navDirs = controlNav($dirPathRel);
