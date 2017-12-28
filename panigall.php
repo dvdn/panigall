@@ -58,7 +58,7 @@ function view($item) {
     $pathItem = getcwd().$linkItem;
 
     if (is_dir($pathItem)) {
-        echo '<a href="?d='.$linkItem.'"/>'.ICONFOLDER.'<br>'.$item.'</a>';
+        echo '<a href="?d='.$linkItem.'"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
     } else {
         $link = './'.$linkItem;
         $thumb = false;
@@ -67,7 +67,7 @@ function view($item) {
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        echo '<a href="'.$link.'"/>'.$icon.'<br>'.$item.'</a>';
+        echo '<a href="'.$link.'"/>'.$icon.'<span>'.$item.'</span></a>';
     }
 }
 
