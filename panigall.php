@@ -33,7 +33,7 @@ function viewTree($dir) {
  */
 function getContentTree($dir){
     $path = getcwd().$dir;
-    $exclude_list = array(".", "..", create_function('$a','return ($a[0]!=".");'));
+    $exclude_list = array(".", "..");
     $items = array_diff(scandir($path), $exclude_list);
     //exclude hidden files
     $items = array_filter($items, create_function('$a','return ($a[0]!=".");'));
@@ -65,9 +65,10 @@ function view($item) {
 }
 
 /**
-* View itemImage
+* getThumb
 *
 * @param string $filePath filePath
+* @param string $fileName fileName
 * @return string Html
 */
 function getThumb($filePath, $fileName) {
@@ -96,7 +97,6 @@ function getThumb($filePath, $fileName) {
 function generateThumb($filePath, $fileName) {
     // @ as exif_read_data is bugged :/
     $exif = @exif_read_data($filePath);
-
     // Image to process
     if (strpos(strtolower($filePath),".png")) { 
         $image = imagecreatefrompng($filePath); // PNG
@@ -114,8 +114,6 @@ function generateThumb($filePath, $fileName) {
 
     // jpeg output
     return imagejpeg($img, $imgCachePath, Q_THUMBS);
-    
-    
 }
 
 /**
