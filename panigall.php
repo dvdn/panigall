@@ -67,7 +67,7 @@ function view($item) {
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        echo '<a href="'.$link.'"/>'.$icon.'<span>'.$item.'</span></a>';
+        echo '<a href="'.$link.'" target="_blank" />'.$icon.'<span>'.$item.'</span></a>';
     }
 }
 
