@@ -12,7 +12,7 @@ Now you can easily navigate in your folders from any webbrowser and watch images
 
 # Notes
 
-Panigall aim to be light and minimalist project (few lines of oldschool PHP). Don't hesitate to adapt style or code to your requirements.
+Panigall aims to be a light and minimalist project (few lines of oldschool PHP inpired by [psg](https://github.com/pascalbrax/psg)). Don't hesitate to adapt style or code to your requirements.
 
 Contributions are welcome
 

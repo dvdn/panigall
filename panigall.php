@@ -82,13 +82,13 @@ function getThumb($filePath, $fileName) {
     // exif_thumbnail is bugged :/
     $imageThumb = @exif_thumbnail($filePath, $width, $height, $type);
     if ($imageThumb!== false) {
-        return "<img  width='$width' height='$height' src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
+        return "<img src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
     } else {
         $fileCachePath = './cache/'.$fileName;
         if (!file_exists($fileCachePath)) {
             generateThumb($filePath, $fileName);
         }
-        return "<img  width='$width' height='$height' src='".$fileCachePath."'>";
+        return "<img src='".$fileCachePath."'>";
         
     }
 }
