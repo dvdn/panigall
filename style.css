@@ -32,16 +32,29 @@ body {
     margin-right: .3em;
 
 }
-#explorer a {
+#explorer {
+    min-height: 576px
+}
+.item {
     margin: 1em;
     width: 160px;
     height: 160px;
 }
-#explorer a span {
+.item span {
     display: inline-block;
     width: 100%;
     overflow-wrap: break-word;
     line-height: 1em;
     font-size: .9em;
+}
+footer {
+    width: 100%;
+    float: left;
+    font-size: .9em;
+    text-align: left;
+    margin-bottom: 1em;
+}
+footer a {
+    float: none;
 }
 
