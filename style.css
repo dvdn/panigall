@@ -14,7 +14,7 @@ a {
 a:hover {
     color: #72a7cf;
 }
-body, footer {
+body {
     background-color: #DDD;
 }
 
@@ -32,12 +32,15 @@ body, footer {
     margin-right: .3em;
 
 }
-#explorer .item {
+#explorer {
+    min-height: 576px
+}
+.item {
     margin: 1em;
     width: 160px;
     height: 160px;
 }
-#explorer .item span {
+.item span {
     display: inline-block;
     width: 100%;
     overflow-wrap: break-word;
@@ -45,13 +48,13 @@ body, footer {
     font-size: .9em;
 }
 footer {
-    float: left;
     width: 100%;
+    float: left;
     font-size: .9em;
     text-align: left;
     margin-bottom: 1em;
 }
-footer a{
+footer a {
     float: none;
 }
 

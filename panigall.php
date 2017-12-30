@@ -29,8 +29,8 @@ function viewTree($dir) {
     foreach (getContentTree($dir) as $item) {
             view($item);
     }
-    viewFooter();
     echo '</div>';
+    viewFooter();
 }
 
 /**
