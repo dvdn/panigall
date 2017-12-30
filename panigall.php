@@ -29,6 +29,7 @@ function viewTree($dir) {
     foreach (getContentTree($dir) as $item) {
             view($item);
     }
+    viewFooter();
     echo '</div>';
 }
 
@@ -58,7 +59,7 @@ function view($item) {
     $pathItem = getcwd().$linkItem;
 
     if (is_dir($pathItem)) {
-        echo '<a href="?d='.$linkItem.'"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
+        echo '<a class="item" href="?d='.$linkItem.'"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
     } else {
         $link = './'.$linkItem;
         $thumb = false;
@@ -67,7 +68,7 @@ function view($item) {
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        echo '<a href="'.$link.'" target="_blank" />'.$icon.'<span>'.$item.'</span></a>';
+        echo '<a class="item" href="'.$link.'" target="_blank" />'.$icon.'<span>'.$item.'</span></a>';
     }
 }
 
@@ -226,6 +227,9 @@ function viewNavItem($item) {
     }
 }
 
+function viewFooter(){
+    echo '<footer><hr>2018 . source code <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a></footer>';
+}
+
 /*execution*/
 viewTree(DIR);
-

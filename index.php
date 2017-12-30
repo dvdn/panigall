@@ -9,11 +9,6 @@
   <body>
     <div id="content">
       <?php
-          /* tmp Debug */
-          error_reporting(E_ALL);
-          ini_set('display_errors', 1);
-          /*-*/
-
           /* panigall explorer */
           include('panigall.php');
       ?>
