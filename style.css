@@ -33,7 +33,7 @@ body {
 
 }
 #explorer {
-    min-height: 576px
+    //min-height: 768px
 }
 .item {
     margin: 1em;
@@ -52,7 +52,7 @@ footer {
     float: left;
     font-size: .9em;
     text-align: left;
-    margin-bottom: 1em;
+    margin: 1em auto;
 }
 footer a {
     float: none;

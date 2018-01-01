@@ -84,7 +84,7 @@ function getThumb($filePath, $fileName) {
     if ($imageThumb!== false) {
         return "<img src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
     } else {
-        $fileCachePath = './cache/'.$fileName;
+        $fileCachePath = './cache'.DIR.'/'.$fileName;
         if (!file_exists($fileCachePath)) {
             generateThumb($filePath, $fileName);
         }
@@ -117,7 +117,12 @@ function generateThumb($filePath, $fileName) {
     imagecopyresampled($img, $image, 0, 0, 0, 0, $imgSizes['widthTh'], $imgSizes['heightTh'], $imgSizes['width'], $imgSizes['height']);
     // destroy old image 
     imagedestroy($image);
-    $imgCachePath = 'cache/'.$fileName;
+
+    $cacheDir = 'cache'.DIR.'/';
+    if (!file_exists($cacheDir)) {
+        mkdir($cacheDir, 0777, true);
+    }
+    $imgCachePath = $cacheDir.$fileName;
 
     // jpeg output
     return imagejpeg($img, $imgCachePath, Q_THUMBS);
