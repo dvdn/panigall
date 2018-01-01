@@ -33,7 +33,7 @@ body {
 
 }
 #explorer {
-    //min-height: 768px
+    min-height: 768px
 }
 .item {
     margin: 1em;
