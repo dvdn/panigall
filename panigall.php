@@ -10,10 +10,9 @@ Const W_THUMBS = 160;
 Const H_THUMBS = 128;
 Const Q_THUMBS = 32;
 
-// Default home folder
-Const HOME = '.';
-// If you want to start in 'myGalleries' folder for example :
-// Const HOME ='?d=/myGalleries';
+// Optional homepage folder
+//Const HOMEDIR = 'MyFoldername';
+define('HOME', isset(get_defined_constants()["HOMEDIR"]) ? '?d=/'.get_defined_constants()["HOMEDIR"] : '.');
 
 define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
 
