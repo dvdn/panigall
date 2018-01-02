@@ -1,6 +1,6 @@
 <?php
 // Optional homepage folder
-//Const HOMEDIR = 'media';
+//Const HOMEDIR = 'MyFolder';
 
 // Thumbnails size and quality
 Const W_THUMBS = 160;
@@ -102,7 +102,6 @@ function getThumb($filePath, $fileName) {
  * @param string $fileName fileName
  * @return jpeg thumb
  */
-
 function generateThumb($filePath, $fileName) {
     // @ as exif_read_data is bugged :/
     $exif = @exif_read_data($filePath);
@@ -137,7 +136,6 @@ function generateThumb($filePath, $fileName) {
  * @param $exif exif infos
  * @return $image
  */
-
 function imgManageRotation($image, $exif) {
     if (!empty($exif['Orientation'])) {
         switch ($exif['Orientation']) {
@@ -163,7 +161,6 @@ function imgManageRotation($image, $exif) {
  * @param int $heightTh thumb height
  * @return array image sizes
  */
-
 function imgManageSize($image, $widthTh = W_THUMBS, $heightTh= H_THUMBS) {
     $width = imagesx($image);
     $height = imagesy($image);
@@ -233,6 +230,11 @@ function viewNavItem($item) {
     }
 }
 
+/**
+ * viewFooter
+ *
+ * @return string Html
+ */
 function viewFooter(){
     echo '<footer><hr>2018 . source code <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a></footer>';
 }
