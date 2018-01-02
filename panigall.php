@@ -1,6 +1,6 @@
 <?php
 // Optional homepage folder
-Const HOMEDIR = 'media';
+//Const HOMEDIR = 'media';
 
 // Thumbnails size and quality
 Const W_THUMBS = 160;
