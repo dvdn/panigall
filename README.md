@@ -2,9 +2,9 @@
 
 Display your folders, files and image galleries online easily !
 
-![panigall screenshot 0](http://dvdn.online.fr/panigall/panigall_screenshot0.png)
+![panigall screenshot 0](http://dvdn.online.fr/panigall/panigall_screenshot0.jpg)
 
-![panigall screenshot 1](http://dvdn.online.fr/panigall/panigall_screenshot1.png)
+![panigall screenshot 1](http://dvdn.online.fr/panigall/panigall_screenshot1.jpg)
 
 ## Usage
 
