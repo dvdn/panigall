@@ -23,9 +23,9 @@ define('DIR', getRootDir());
 function getHomeDir()
 {
     if (isset(get_defined_constants()["HOMEDIR"])) {
-        return ('?d=/'.get_defined_constants()["HOMEDIR"]);
+        return '?d=/'.get_defined_constants()["HOMEDIR"];
     }
-    return ('.');
+    return '.';
 }
 
 /**
@@ -36,12 +36,11 @@ function getHomeDir()
 function getRootDir()
 {
     if (!isset(get_defined_constants()["HOMEDIR"])) {
-        return ((isset($_GET["d"])) ? $_GET["d"] : '');
+        return isset($_GET["d"]) ? $_GET["d"] : '';
     } elseif (!isset($_GET["d"])) {
-        return ('/'.get_defined_constants()["HOMEDIR"]);
-    } else {
-        return ($_GET["d"]);
+        return '/'.get_defined_constants()["HOMEDIR"];
     }
+    return $_GET["d"];
 }
 
 /**
@@ -73,8 +72,8 @@ function getContentTree($dir)
     $exclude_list = array(".", "..");
     $items = array_diff(scandir($path), $exclude_list);
     // exclude hidden files
-    $items = array_filter($items, create_function('$a', 'return ($a[0]!=".");'));
-    return ($items);
+    $items = array_filter($items, create_function('$a', 'return $a[0]!=".";'));
+    return $items;
 }
 
 /**
@@ -89,7 +88,7 @@ function view($item)
     $pathItem = getcwd().$linkItem;
 
     if (is_dir($pathItem)) {
-        echo '<a class="item" href="?d='.$linkItem.'"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
+        echo '<a class="item" href="?d='.$linkItem.'" title="open folder"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
     } else {
         $link = './'.$linkItem;
         $thumb = false;
@@ -98,7 +97,7 @@ function view($item)
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        echo '<a class="item" href="'.$link.'" target="_blank" />'.$icon.'<span>'.$item.'</span></a>';
+        echo '<a class="item" href="'.$link.'" target="_blank" title="open image"/>'.$icon.'<span>'.$item.'</span></a>';
     }
 }
 
@@ -259,9 +258,9 @@ function viewNavItem($item)
 {
     if ($item!=='') {
         $path = explode('/', $item);
-        return '<a href="?d='.$item.'"/> / '.end($path).'</a>';
-    } 
-    return '<a href="'.HOME.'"/>home</a>';
+        return '<a href="?d='.$item.'" title="to folder '.end($path).'"/> / '.end($path).'</a>';
+    }
+    return '<a href="'.HOME.'" title="back home"/>home</a>';
 }
 
 /**
@@ -273,7 +272,7 @@ function getFooter()
 {
     return <<<EOD
 <footer>
-    2018 . powered by <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a>
+    2020 . powered by <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a>
 </footer>
 EOD;
 }
