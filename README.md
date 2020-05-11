@@ -6,6 +6,9 @@ Display your folders, files and image galleries online easily !
 
 ![panigall screenshot 1](http://dvdn.online.fr/panigall/panigall_screenshot1.jpg)
 
+## Requirement
+library php-gd
+
 ## Usage
 
 Clone or [download it](https://github.com/dvdn/panigall/archive/master.zip) in your server.
