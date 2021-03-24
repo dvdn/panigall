@@ -272,7 +272,7 @@ function getFooter()
 {
     return <<<EOD
 <footer>
-    2020 . powered by <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a>
+    2021 . powered by <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a>
 </footer>
 EOD;
 }
