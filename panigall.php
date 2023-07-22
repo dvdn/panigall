@@ -15,35 +15,14 @@ const ICONFOLDER = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBo
 </svg>';
 Const HOMEICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAAlklEQVQokdWQMQoCQRAEC7xIU32KnzgjwUwzNzAULhTUZwj6DH2EIoePMVPQZAaG4Vh2N7uGioZq6IF4pkJRZsBbqHPlAHyBn/AB1qny0YieQ0ysgEtEVs7AwMsj4JYgK1dgqPIEeGTIyl1cVrK7zZCf4iztjJT9yqnrib5gC4yFpqQgmNumHwV74GWYm9vC3XZdBUX5A4QFcA7UqNedAAAAAElFTkSuQmCC";
 
-define('HOME', getHomeDir());
-define('DIR', getRootDir());
+define('HOME', !isset(get_defined_constants()["HOMEDIR"]) ? '.' :'?d=/'.get_defined_constants()["HOMEDIR"]);
 
-/**
- * Get home dir
- *
- * @return string home path
- */
-function getHomeDir()
-{
-    if (isset(get_defined_constants()["HOMEDIR"])) {
-        return '?d=/'.get_defined_constants()["HOMEDIR"];
-    }
-    return '.';
-}
-
-/**
- * Get root dir
- *
- * @return string path
- */
-function getRootDir()
-{
-    if (!isset(get_defined_constants()["HOMEDIR"])) {
-        return isset($_GET["d"]) ? $_GET["d"] : '';
-    } elseif (!isset($_GET["d"])) {
-        return '/'.get_defined_constants()["HOMEDIR"];
-    }
-    return $_GET["d"];
+if (!isset(get_defined_constants()["HOMEDIR"])) {
+    define('DIR', (isset($_GET["d"])) ? $_GET["d"] : '');
+} elseif (!isset($_GET["d"])) {
+    define('DIR', '/'.get_defined_constants()["HOMEDIR"]);
+} else {
+    define('DIR', $_GET["d"]);
 }
 
 /**
