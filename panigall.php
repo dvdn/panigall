@@ -72,7 +72,7 @@ function view($item)
     if (is_dir($pathItem)) {
         echo '<a class="item" href="?d='.$linkItem.'" title="open folder"/>'.ICONFOLDER.'<span>'.$item.'</span></a>';
     } else {
-        $link = './'.$linkItem;
+        $link = '.'.$linkItem;
         $thumb = false;
         // if image view thumb
         if (is_array(getimagesize($pathItem))) {
