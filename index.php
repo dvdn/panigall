@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <header><h1>Panigall</h1></header>
+
     <div id="content">
       <?php
           /* panigall explorer */
@@ -14,5 +16,8 @@
       ?>
     </div>
 
+    <footer>
+      <?php echo date('Y');?> . powered by <a href="https://github.com/dvdn/panigall" target="_blank"/>dvdn/panigall</a>
+    </footer>
   </body>
 </html>
