@@ -79,7 +79,8 @@ function view($item)
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        echo '<a class="item" href="'.$link.'" target="_blank" title="open image"/>'.$icon.'<span>'.$item.'</span></a>';
+        $modalClass = ($thumb==false) ? '' : 'js_modal';
+        echo '<a class="item '.$modalClass.'" href="'.$link.'" target="_blank" title="open image"/>'.$icon.'<span>'.$item.'</span></a>';
     }
 }
 
@@ -94,7 +95,7 @@ function getThumb($filePath, $fileName)
 {
     // exif_thumbnail is bugged :/
     $imageThumb = @exif_thumbnail($filePath, $width, $height, $type);
-    if ($imageThumb!== false) {
+    if ($imageThumb !== false) {
         return "<img src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
     } else {
         $fileCachePath = './cache'.DIR.'/'.$fileName;

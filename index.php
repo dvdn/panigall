@@ -5,6 +5,9 @@
     <title>Panigall</title>
     <link rel="icon" href="panigall.png" type="image/png" sizes="96x96">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
+    <script src="modal.js"></script>
+
   </head>
   <body>
     <header><h1>Panigall</h1></header>
@@ -13,6 +16,7 @@
       <?php
           /* panigall explorer */
           include('panigall.php');
+          include('modal.php')
       ?>
     </div>
 
