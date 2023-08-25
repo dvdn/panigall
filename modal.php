@@ -1,6 +1,5 @@
-<!-- The Modal -->
-<div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
+<div id="js-modal" class="modal">
+    <span class="close" title="close">&times;</span>
+    <img id="js-modal-content" class="modal-content" >
     <div id="caption"></div>
 </div>

@@ -1,9 +1,8 @@
-/* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 70px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -21,7 +20,6 @@
     max-width: 700px;
   }
 
-  /* Caption of Modal Image */
   #caption {
     margin: auto;
     display: block;
@@ -33,7 +31,25 @@
     height: 150px;
   }
 
-  /* The Close Button */
+  /* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.3s;
+    animation-name: zoom;
+    animation-duration: 0.3s;
+  }
+
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+  }
+
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+
+  /* close btn */
 .close {
     position: absolute;
     top: 15px;
@@ -41,7 +57,6 @@
     color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;
-    transition: 0.3s;
   }
 
   .close:hover,

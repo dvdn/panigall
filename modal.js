@@ -1,26 +1,22 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
     // Get the modal
-    var modal = document.getElementById("myModal");
+    var modal = document.getElementById("js-modal");
 
-    // Get the image and insert it inside the modal - use its "alt" text as a caption
-    var item_img = document.getElementsByClassName("item js_modal");
-    var modalImg = document.getElementById("img01");
+    var itemImg = document.getElementsByClassName("item js-modal-item");
+    var modalImg = document.getElementById("js-modal-content");
     var captionText = document.getElementById("caption");
-    //setTimeout(function(){
 
-    for (var i = 0; i < item_img.length; i++) {
-        console.log(item_img[i]);
-        item_img[i].addEventListener("click", (event) => {
-            console.log(event.target.src);
+    for (var i = 0; i < itemImg.length; i++) {
+        console.log(itemImg[i]);
+        itemImg[i].addEventListener("click", (event) => {
 
-            const anchor = event.target.closest("a");   // Find closest Anchor (or self)
-            if (!anchor) return;                        // Not found. Exit here.
-            console.log( anchor.getAttribute('href'));
+            if (!this.activeElement.getAttribute('href')) return; // Not found. Exit here.
 
             modal.style.display = "block";
-            modalImg.src = anchor.getAttribute('href');
-            //captionText.innerHTML = this.alt;
+            modalImg.src = this.activeElement.getAttribute('href');
+            var itemName = this.activeElement.childNodes[1].innerHTML; // Span contains item name
+            captionText.innerHTML = itemName;
 
             event.preventDefault();
             return false;
@@ -29,12 +25,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     }
 
-    // Get the <span> element that closes the modal
+    // Closes the modal
+    modal.onclick = function() {
+        modal.style.display = "none";
+    }
     var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-    modal.style.display = "none";
+        modal.style.display = "none";
     }
 
 });

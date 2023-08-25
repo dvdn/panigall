@@ -79,7 +79,7 @@ function view($item)
             $thumb = getThumb($pathItem, $item);
         }
         $icon = ($thumb==false) ? ICONFILE : $thumb;
-        $modalClass = ($thumb==false) ? '' : 'js_modal';
+        $modalClass = ($thumb==false) ? '' : 'js-modal-item';
         echo '<a class="item '.$modalClass.'" href="'.$link.'" target="_blank" title="open image"/>'.$icon.'<span>'.$item.'</span></a>';
     }
 }
