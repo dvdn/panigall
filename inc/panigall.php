@@ -6,7 +6,7 @@ if (!isset(get_defined_constants()["HOMEDIR"]) OR scandir(HOMEDIR) == false) {
     return;
 }
 
-// homepage display, desired path or root redirection
+// Homepage display, desired path or root redirection
 if (!isset($_GET["d"])) {
     define('DIR', '/'.get_defined_constants()["HOMEDIR"]);
 } elseif (scandir('.'.$_GET["d"]) == false) {
@@ -27,7 +27,9 @@ if (!isset($_GET["d"])) {
  */
 function viewTree($dir)
 {
-    viewNav($dir);
+    $dirForNav = str_replace('/'.get_defined_constants()["HOMEDIR"], "", $dir); // Don't display HOMEDIR
+
+    viewNav($dirForNav);
     echo '<div id="explorer">';
     foreach (getContentTree($dir) as $item) {
         view($item);
@@ -48,7 +50,7 @@ function getContentTree($dir)
     $items = array_diff(scandir($path), $exclude_list);
     // exclude hidden files
     //$items = array_filter($items, create_function('$a', 'return $a[0]!=".";')); deprecated
-    $items = array_filter($items, function($a){return $a[0]!=".";});
+    $items = array_filter($items, function($a){return $a[0] !== ".";});
     return $items;
 }
 
