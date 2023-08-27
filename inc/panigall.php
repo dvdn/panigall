@@ -27,9 +27,10 @@ if (!isset($_GET["d"])) {
  */
 function viewTree($dir)
 {
-    $dirForNav = str_replace('/'.get_defined_constants()["HOMEDIR"], "", $dir); // Don't display HOMEDIR
-
-    viewNav($dirForNav);
+    if (get_defined_constants()["HIDE_BREADCRUMP"] == FALSE OR !isset(get_defined_constants()["HIDE_BREADCRUMP"])) {
+        $dirForNav = str_replace('/'.get_defined_constants()["HOMEDIR"], "", $dir); // Don't display HOMEDIR
+        viewNav($dirForNav);
+    }
     echo '<div id="explorer">';
     foreach (getContentTree($dir) as $item) {
         view($item);
