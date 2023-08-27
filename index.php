@@ -14,11 +14,6 @@
 
     <div id="content">
       <?php
-
-          // PHP debug
-          error_reporting(E_ALL);
-          ini_set('display_errors', 1);
-
           /* Panigall images files explorer */
           include('inc/panigall.php');
           include('inc/modal.php')
