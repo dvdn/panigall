@@ -1,0 +1,65 @@
+html, body, div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+a {
+    text-decoration: none;
+    color: black;
+    float: left;
+}
+a:hover {
+    color: #72a7cf;
+}
+h1 {
+    font-size: 1em;
+}
+body {
+    background-color: #EEE;
+    font-family: sans-serif;
+}
+header, #content{
+    padding: 0 1em;
+}
+#content {
+    text-align: center;
+}
+#nav {
+    display: inline-block;
+    width: 100%;
+    height: 1em;
+}
+#nav a {
+    margin-right: .3em;
+
+}
+#explorer {
+    min-height: 768px
+}
+.item {
+    margin: 1em;
+    width: 160px;
+    height: 160px;
+}
+.item span {
+    display: inline-block;
+    width: 100%;
+    overflow-wrap: break-word;
+    line-height: 1em;
+    font-size: .9em;
+}
+footer {
+    width: 99%;
+    display: inline-block;
+    margin: 0 1em .5em 0;
+    font-size: .7em;
+    text-align: right;
+    color: grey;
+}
+footer a {
+    color: grey;
+    float: none;
+}
