@@ -247,7 +247,7 @@ function controlNav($dirPathRel)
 function viewNavItem($item) {
     if ($item !== ''){
         $path = explode('/', $item);
-        echo '<a href="?d='.$item.'" title="to folder '.end($path).'"/> / '.end($path).'</a>';
+        echo '<a href="?d=/'.get_defined_constants()["HOMEDIR"].$item.'" title="to folder '.end($path).'"/> / '.end($path).'</a>';
     } else {
         echo '<a href="." title="back home"/><img src='.ICON_HOME.'></a>';
     }
