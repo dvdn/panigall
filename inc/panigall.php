@@ -1,19 +1,19 @@
 <?php
 include_once('config.php');
 
-if (!isset(get_defined_constants()["HOMEDIR"]) OR scandir(HOMEDIR) == false) {
-    echo('<p style="color:red;">error : HOMEDIR config is required or invalid</p>');
+if (!isset(get_defined_constants()["HOMEDIR"]) or scandir(HOMEDIR) == false) {
+    echo ('<p style="color:red;">error : HOMEDIR config is required or invalid</p>');
     return;
 }
 
 // Homepage display, desired path or root redirection
 if (!isset($_GET["d"])) {
-    define('DIR', '/'.get_defined_constants()["HOMEDIR"]);
-} elseif (scandir('.'.$_GET["d"]) == false) {
-    echo('<p style="color:red;">error : '.$_GET["d"].' directory doesn\'t exist</p>');
+    define('DIR', '/' . get_defined_constants()["HOMEDIR"]);
+} elseif (scandir('.' . $_GET["d"]) == false) {
+    echo ('<p style="color:red;">error : ' . $_GET["d"] . ' directory doesn\'t exist</p>');
     header("Refresh:2; url=.");
     return;
-} elseif ($_GET["d"] == "/"){
+} elseif ($_GET["d"] == "/") {
     header("Refresh:0; url=.");
 } else {
     define('DIR', $_GET["d"]);
@@ -27,8 +27,8 @@ if (!isset($_GET["d"])) {
  */
 function viewTree($dir)
 {
-    if (get_defined_constants()["HIDE_BREADCRUMP"] == FALSE OR !isset(get_defined_constants()["HIDE_BREADCRUMP"])) {
-        $dirForNav = str_replace('/'.get_defined_constants()["HOMEDIR"], "", $dir); // Don't display HOMEDIR
+    if (get_defined_constants()["HIDE_BREADCRUMP"] == FALSE or !isset(get_defined_constants()["HIDE_BREADCRUMP"])) {
+        $dirForNav = str_replace('/' . get_defined_constants()["HOMEDIR"], "", $dir); // Don't display HOMEDIR
         viewNav($dirForNav);
     }
     echo '<div id="explorer">';
@@ -46,60 +46,62 @@ function viewTree($dir)
  */
 function getContentTree($dir)
 {
-    $path = getcwd().$dir;
+    $path = getcwd() . $dir;
     $exclude_list = array(".", "..");
     $items = array_diff(scandir($path), $exclude_list);
     // exclude hidden files
     //$items = array_filter($items, create_function('$a', 'return $a[0]!=".";')); deprecated
-    $items = array_filter($items, function($a){return $a[0] !== ".";});
+    $items = array_filter($items, function ($a) {
+        return $a[0] !== ".";
+    });
     return $items;
 }
 
 /**
-* View item
-*
-* @param string $item filename
-* @return string Html
-*/
+ * View item
+ *
+ * @param string $item filename
+ * @return string Html
+ */
 function view($item)
 {
-    $linkItem = DIR.'/'.$item;
-    $pathItem = getcwd().$linkItem;
+    $linkItem = DIR . '/' . $item;
+    $pathItem = getcwd() . $linkItem;
 
     if (is_dir($pathItem)) {
-        echo '<a class="item" href="?d='.$linkItem.'" title="open folder"/>'.ICON_FOLDER.'<span>'.$item.'</span></a>';
+        echo '<a class="item" href="?d=' . $linkItem . '" title="open folder"/>' . ICON_FOLDER . '<span>' . $item . '</span></a>';
     } else {
-        $link = '.'.$linkItem;
+        $link = '.' . $linkItem;
         $thumb = false;
         // if image view thumb
         if (is_array(getimagesize($pathItem))) {
             $thumb = getThumb($pathItem, $item);
         }
-        $icon = ($thumb==false) ? ICON_BASICFILE : $thumb;
-        $modalClass = ($thumb==false) ? '' : 'js-modal-item';
-        echo '<a class="item '.$modalClass.'" href="'.$link.'" target="_blank" title="open image"/>'.$icon.'<span>'.$item.'</span></a>';
+        $icon = ($thumb == false) ? ICON_BASICFILE : $thumb;
+        $modalClass = ($thumb == false) ? '' : 'js-modal-item';
+        echo '<a class="item ' . $modalClass . '" href="' . $link . '" target="_blank" title="open image"/>' . $icon . '<span>' . $item . '</span></a>';
     }
 }
 
 /**
-* getThumb
-*
-* @param string $filePath filePath
-* @param string $fileName fileName
-* @return string Html
-*/
+ * getThumb
+ *
+ * @param string $filePath filePath
+ * @param string $fileName fileName
+ * @return string Html
+ */
 function getThumb($filePath, $fileName)
 {
     // exif_thumbnail is bugged :/
     $imageThumb = @exif_thumbnail($filePath, $width, $height, $type);
     if ($imageThumb !== false) {
-        return "<img src='data:image/gif;base64,".base64_encode($imageThumb)."'>";
+        return "<img src='data:image/gif;base64," . base64_encode($imageThumb) . "'>";
     } else {
-        $fileCachePath = './cache'.DIR.'/'.$fileName;
+        $fileCachePath = './cache' . DIR . '/' . $fileName;
         if (!file_exists($fileCachePath)) {
             generateThumb($filePath, $fileName);
         }
-        return "<img src='".$fileCachePath."'>";
+        return "<img src='" . $fileCachePath . "'>";
     }
 }
 
@@ -116,7 +118,7 @@ function generateThumb($filePath, $fileName)
     $exif = @exif_read_data($filePath);
     // Image to process
     $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-    switch($ext) {
+    switch ($ext) {
         case 'jpg':
         case 'jpeg':
             $image = imagecreatefromjpeg($filePath);
@@ -138,11 +140,11 @@ function generateThumb($filePath, $fileName)
     // destroy old image
     imagedestroy($image);
 
-    $cacheDir = 'cache'.DIR.'/';
+    $cacheDir = 'cache' . DIR . '/';
     if (!file_exists($cacheDir)) {
         mkdir($cacheDir, 0777, true);
     }
-    $imgCachePath = $cacheDir.$fileName;
+    $imgCachePath = $cacheDir . $fileName;
 
     // jpeg output
     return imagejpeg($img, $imgCachePath, Q_THUMBS);
@@ -185,16 +187,18 @@ function imgManageSize($image, $widthTh = W_THUMBS, $heightTh = H_THUMBS)
 {
     $width = imagesx($image);
     $height = imagesy($image);
-    $ratio = $width/$height;
-    if ($widthTh/$heightTh > $ratio) {
-        $widthTh = $heightTh*$ratio;
+    $ratio = $width / $height;
+    if ($widthTh / $heightTh > $ratio) {
+        $widthTh = $heightTh * $ratio;
     } else {
-        $heightTh = $widthTh/$ratio;
+        $heightTh = $widthTh / $ratio;
     }
-    return ['width'     => $width,
-            'height'    => $height,
-            'widthTh'   => (int)$widthTh,
-            'heightTh'  => (int)$heightTh];
+    return [
+        'width'     => $width,
+        'height'    => $height,
+        'widthTh'   => (int)$widthTh,
+        'heightTh'  => (int)$heightTh
+    ];
 }
 
 /**
@@ -221,15 +225,15 @@ function viewNav($dirPathRel)
  */
 function controlNav($dirPathRel)
 {
-    $ariane[]=$dirPathRel;
+    $ariane[] = $dirPathRel;
     if ($dirPathRel !== '') {
         $treeElmnts = explode('/', $dirPathRel);
         $tmpToPop = $treeElmnts;
-        $i=1;
+        $i = 1;
         while ($i < count($treeElmnts)) {
             array_pop($tmpToPop);
             $parentdir = implode('/', $tmpToPop);
-            $ariane[]=$parentdir;
+            $ariane[] = $parentdir;
             $i++;
         }
         # breadcrumb reorder
@@ -244,12 +248,13 @@ function controlNav($dirPathRel)
  * @param string directory name
  * @return string Html
  */
-function viewNavItem($item) {
-    if ($item !== ''){
+function viewNavItem($item)
+{
+    if ($item !== '') {
         $path = explode('/', $item);
-        echo '<a href="?d=/'.get_defined_constants()["HOMEDIR"].$item.'" title="to folder '.end($path).'"/> / '.end($path).'</a>';
+        echo '<a href="?d=/' . get_defined_constants()["HOMEDIR"] . $item . '" title="to folder ' . end($path) . '"/> / ' . end($path) . '</a>';
     } else {
-        echo '<a href="." title="back home"/><img src='.ICON_HOME.'></a>';
+        echo '<a href="." title="back home"/><img src=' . ICON_HOME . '></a>';
     }
 }
 

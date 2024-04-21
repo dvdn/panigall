@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
 
     // Get the modal
     var modal = document.getElementById("js-modal");
@@ -6,32 +6,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var itemImg = document.getElementsByClassName("item js-modal-item");
     var modalImg = document.getElementById("js-modal-content");
     var captionText = document.getElementById("caption");
+    var position = document.getElementById("img_pos");
+    var next = document.getElementById("next");
+    var prev = document.getElementById("prev");
 
     for (var i = 0; i < itemImg.length; i++) {
-        console.log(itemImg[i]);
-        itemImg[i].addEventListener("click", (event) => {
 
-            if (!this.activeElement.getAttribute('href')) return; // Not found. Exit here.
+        itemImg[i].addEventListener("click", (event) => {
+            var currentEl = event.currentTarget;
+            if (!currentEl.getAttribute('href')) return; // Not found, exit here
 
             modal.style.display = "block";
-            modalImg.src = this.activeElement.getAttribute('href');
-            var itemName = this.activeElement.childNodes[1].innerHTML; // Span contains item name
+            modalImg.src = currentEl.getAttribute('href');
+            var itemName = currentEl.childNodes[1].innerHTML; // Span contains item name
             captionText.innerHTML = itemName;
+            position.innerHTML = [...itemImg].indexOf(currentEl);
 
             event.preventDefault();
             return false;
-
         });
-
     }
 
     // Closes the modal
-    modal.onclick = function() {
-        modal.style.display = "none";
-    }
-    var span = document.getElementsByClassName("close")[0];
-    span.onclick = function() {
+    modalImg.onclick = function () {
         modal.style.display = "none";
     }
 
+    document.getElementById("close").onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // Next Prev
+    next.addEventListener("click", (e) => {
+        var currentPos = Number(position.innerHTML)
+        if (currentPos < itemImg.length - 1) {
+            itemImg[currentPos + 1].click();
+        } else {
+            modal.style.display = "none";
+        }
+    });
+
+    prev.addEventListener("click", (e) => {
+        var currentPos = Number(position.innerHTML)
+        if (currentPos > 0) {
+            itemImg[currentPos - 1].click();
+        } else {
+            modal.style.display = "none";
+        }
+    });
 });

@@ -7,68 +7,105 @@
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9);
+  overflow: auto;
+  /* Scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 1024px;
+}
+
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 1024px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 120px;
+}
+
+/* Add Animation */
+.modal-content,
+#caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.3s;
+  animation-name: zoom;
+  animation-duration: 0.3s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0)
   }
 
-  /* Modal Content (image) */
+  to {
+    -webkit-transform: scale(1)
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
+}
+
+/* modal btn */
+.modal-btn {
+  color: #f1f1f1;
+  font-weight: bold;
+}
+
+.modal-nav {
+  width: 1.7em;
+  height: 3em;
+  padding-top: 2em;
+  font-size: 60px;
+}
+
+#close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  font-size: 40px;
+}
+
+#close:hover,
+#close:focus,
+#next:hover,
+#next:focus,
+#prev:hover,
+#prev:hover {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#prev {
+  float: left;
+}
+
+#next {
+  float: right;
+}
+
+
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
   .modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 1024px;
+    width: 100%;
   }
-
-  #caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 1024px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 120px;
-  }
-
-  /* Add Animation */
-.modal-content, #caption {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.3s;
-    animation-name: zoom;
-    animation-duration: 0.3s;
-  }
-
-  @-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)}
-    to {-webkit-transform:scale(1)}
-  }
-
-  @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
-  }
-
-  /* close btn */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px){
-    .modal-content {
-      width: 100%;
-    }
-  }
+}
