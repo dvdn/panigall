@@ -59,8 +59,9 @@
     font-weight: bold;
   }
 
-  .close:hover,
-  .close:focus {
+  .close:hover,.close:focus,
+  .next:hover,.next:focus,
+  .prev:hover,.prev:hover:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
