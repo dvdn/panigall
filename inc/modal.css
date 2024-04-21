@@ -49,23 +49,43 @@
     to {transform:scale(1)}
   }
 
-  /* close btn */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
+  /* modal btn */
+  .modal-btn {
     color: #f1f1f1;
-    font-size: 40px;
     font-weight: bold;
   }
 
-  .close:hover,.close:focus,
-  .next:hover,.next:focus,
-  .prev:hover,.prev:hover:focus {
+  .modal-nav{
+    width: 1.7em;
+    height: 3em;
+    padding-top: 2em;
+    font-size: 60px;
+  }
+
+  #close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    font-size: 40px;
+  }
+
+  #close:hover,#close:focus,
+  #next:hover,#next:focus,
+  #prev:hover,#prev:hover:focus {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
   }
+
+  #prev {
+    float: left;
+  }
+
+  #next {
+    float: right;
+  }
+
+
 
   /* 100% Image Width on Smaller Screens */
   @media only screen and (max-width: 700px){

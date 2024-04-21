@@ -1,7 +1,8 @@
+
 <div id="js-modal" class="modal">
-    <span class="close" title="close">&times;</span>
-    <div id="next">Next</div>
-    <div id="prev">Prev</div>
+    <span class="modal-btn modal-nav" id="prev" title="previous">&#8249;</span>
+    <span class="modal-btn modal-nav" id="next" title="next">&#8250;</span>
+    <span class="modal-btn" id="close" title="close">&times;</span>
     <img id="js-modal-content" class="modal-content" >
     <div id="caption"></div>
     <span id="img_pos"></span>

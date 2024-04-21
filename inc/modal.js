@@ -32,8 +32,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // modal.onclick = function() {
     //     modal.style.display = "none";
     // }
-    var span = document.getElementsByClassName("close")[0];
-    span.onclick = function() {
+    document.getElementById("close").onclick = function() {
         modal.style.display = "none";
     }
 
